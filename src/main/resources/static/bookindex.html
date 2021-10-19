@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<!-- ================파비콘======================= -->
+<link rel="shortcut icon" type="image/x-icon" href="https://bit.ly/3j0cOpj">
+
+<!-- ======================= CSS 적용 ========================== -->
+<link href="style.css" rel="stylesheet" type="text/css">
+
+
+<title>LBL Project</title>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
+<!-- css 관련 -->
+
+
+</head>
+<body>
+
+	<h1>Listen to the book and read it</h1>
+
+	<div id="bookContent">
+
+		<!-- ===================비동기 전체 검색===================== -->
+
+		<button @click="reqResAjax()">전체 조회</button><br><br>
+		<div class="bookList" v-if="resData">
+			<center>
+				<table>
+					<tr>
+						<th>순서</th>
+						<th>제목</th>
+						<th>작가</th>
+						<th>장르</th>
+						<th>출판사</th>
+					</tr>
+					<tr v-for="book in booklist">
+						<td>{{ book.seq }}</td>
+						<td>{{ book.title }}</td>
+						<td>{{ book.writer }}</td>
+						<td>{{ book.category }}</td>
+						<td>{{ book.publisher }}</td>
+					</tr>
+				</table>
+		</div>
+		</center>
+
+
+		<div id="viewData"></div>
+			
+		<!-- ==================책 추가 등록 하는 부분================= -->
+			<template id="datalist">
+				<div>
+						<input type="text" v-model.number:value="book.seq" placeholder="번호를 입력해주세요" required /><br>
+						<input type="text" v-model:value="book.title" placeholder="제목을 입력해주세요" required /><br> 
+						<input type="text" v-model:value="book.writer" placeholder="작가명을 입력해주세요" required /><br> 
+						<input type="text" v-model:value="book.category" placeholder="장르를 입력해주세요" required /><br> 
+						<input type="text" v-model:value="book.publisher" placeholder="출판사를 입력해주세요" required /><br><br> 
+						<button @click="addsave()">추가등록</button><br><br>
+				</div>
+			</template>
+		
+		<!-- ================= 특정 검색 및 조회 =================== -->
+		
+		<div>
+				<input type="text" v-model:value="book.title" placeholder="제목을 입력해주세요" required /><br><br>
+				<button @click="selecttitle()">조회</button><br><br>
+		</div>
+		
+		<!-- =================책 삭제 부분========================== -->
+		<template id="datalist2">
+			<div>
+				<input type="text" v-model:value="book.seq" placeholder="번호를 입력해주세요" required /><br><br>
+				<button @click="deleteBook()">삭제</button><br><br>
+			</div>
+		</template>
+		
+		
+		
+		<!-- ==================책 이미지, 내용, 듣기================== -->
+		<div class="totalList">
+		
+		<!-- ========================첫 번째 책=========================== -->
+			<center>
+				<img class="totalList" align="middle" alt="img" src="/image/fish.PNG">
+			</center>
+			<div class="data">
+				<h3>인어공주</h3>
+
+				<p>폭풍에 휘말려 난파한 인간 왕자를 구해준 뒤 그를 사랑하게 된 인어공주는 자기 목소리를 희생하는 대신 인간처럼
+					두 다리가 생기는 조건으로 마녀와 거래하여 왕자를 다시 만난다. 그녀는 왕자에게 발견된 뒤, 얼마간 귀여움을 받고 행복을
+					꿈꾼다. 그러나 왕자는 곧 아름다운 이웃 나라 공주님이 자신의 진짜 은인이라고 생각하게 되어 그녀에게 마음을 빼앗긴다.
+					마녀의 주의사항에는 왕자의 사랑을 받지 못하면 물거품이 된다는 말이 있었기에 인어공주는 절망한다. 그 때 그녀에게
+					언니들이 와서 자신들의 머리칼과 맞바꾼 칼로 왕자를 찌르면 인어로 돌아갈 수 있다고 종용한다. 그녀는 처음에는
+					고뇌하지만, 사랑하는 왕자를 죽일 수 없어서 왕자의 결혼식 전날에 스스로 바다에 몸을 던진다. 그런데 이상하게 몸이
+					가볍게 되고 잃어버린 목소리도 보다 신비하고 아름다워진 상태로 나오자 그녀는 놀라워한다. 공기의 정령들은 그녀가 자신들과
+					똑같이 되었음을, 300년 동안 인간들에게 봉사하면 자신만의 영혼을 가질 수 있음을 알려준다. 인어공주는 왕자와 공주 두
+					사람을 축복하며 불멸의 영혼을 얻어 승천한다</p>
+
+				<audio src="/sound/fish.mp3" autoplay loop controls id="listen1">인어공주 샘플 듣기</audio>
+			</div>
+
+			<!-- ======================두 번째 책================================ -->	
+			<center>
+			<img class="totalList" align="middle" alt="img" src="/image/girl.PNG">
+			</center>
+			<div class="data">
+			<h3>성냥팔이 소녀</h3>
+			
+			<p>크리스마스 시즌인 겨울에 작은 소녀가 얇은 옷을 입고 추위에 떨고 있는 상황 속에서 성냥을 팔고 있었다. 
+			소녀는 성냥을 팔지 못하면 아버지에게 혼났기 때문에 성냥이 다 팔리기 전까지는 집에 돌아갈 수 없었다. 
+			그러나 거리를 지나가는 사람들은 연말의 분주함 때문인지 소녀를 본체 만체 하고 지나갔다.
+			깊은 밤에 소녀는 집 앞에서 성냥에 불을 붙였다. 소녀는 성냥의 불길과 함께 따뜻한 난로, 칠면조 등의 음식이 진열된 식탁, 
+			크리스마스 트리 등의 환상이 나타났다가 불길이 사라지면 동시에 사라진다는 신기한 체험을 했다.
+			하늘에서 별똥별이 떨어지는 모습을 본 소녀는 할머니가 "별똥별은 누군가가 죽어가는 상징이다"라고 말한 것을 떠올렸다. 
+			다음 번의 성냥에서 나온 불길에서는 할머니의 환영이 나타났다. 
+			성냥의 불꽃이 사라지자 할머니가 사라지는 것을 두려워한 소녀는 당황해서 갖고 있던 성냥에 모두 불을 붙였다. 
+			할머니의 모습은 밝은 빛에 휩싸이면서 소녀를 부드럽게 끌어안으며 천국으로 갔다.
+			새해 첫날 아침 소녀는 성냥들을 안고 행복한 미소를 지으면서 죽어 있었다. 
+			그 광경을 본 사람들은 모두 한마음 한뜻으로 소녀를 위해 기도를 하고 나서 눈물을 흘렸다.</p>
+			
+			<audio src="/sound/girl.mp3" autoplay loop controls id="listen2">성냥팔이 소녀 샘플 듣기</audio>
+			</div>
+		
+		<!-- =======================세 번째 책================================= -->
+			<center>
+			<img class="totalList" align="middle" alt="img" src="/image/snow.PNG">
+			</center>
+			<div class="data">
+			<h3>눈의 여왕</h3>
+			
+			<p>옛날 옛적에, 카이라는 소년과 게르다라는 소녀가 있었는데 둘은 아주 사이가 좋았다. 
+			하지만 어느 날 사악한 트롤이, 모든 물체를 추하게 비추어 보여주는 거울을 깨트리는 바람에 
+			그 파편 하나가 하늘에서 떨어져 카이의 눈과 심장에 박혔고 
+			카이의 성격은 오직 돋보기로 눈송이를 볼 때만 기뻐하게 될 정도로 차갑게 변하고 만다. 
+			그 후 어느 눈 오는 날, 혼자서 나가 놀고 있던 카이에게 어디선가 눈의 여왕이 나타났다. 
+			그리고 마치 그를 홀리듯이 2번 키스를 한 다음 그와 함께 사라져 버렸다.</p>
+			
+			<audio src="/sound/snow.mp3" autoplay loop controls id="listen3">눈의 여왕 샘플 듣기</audio>
+			</div>
+		
+		<!-- =======================네 번째 책================================= -->
+			<center>
+			<img class="totalList" align="middle" alt="img" src="/image/sesy.PNG">
+			</center>
+			<div class="data">
+			<h3>서시</h3>
+			
+			<p>시집 〈하늘과 바람과 별과 시〉 앞머리에 수록되어 있다. 
+			연희전문 졸업을 1개월 앞두고 쓴 이 작품은 서시(序詩)인 만큼 그의 시집의 정신을 대표한다고 하겠다. 
+			그가 가야 할 길이란 식민지 일제의 질곡(桎梏)에도 불구하고, 
+			겸손한 의지와 신념으로 민족을 위해 광명을 선사하는 일이며, 
+			고결한 지성으로 불굴의 절조를 노래하는 것이었다. 
+			그는 이 길을 가기 위해서 종교적인 자세로 하늘에 대고 부끄러움이 없기를 바랐다. 
+			'부끄러움이 없기를 …괴로워했다'는 것은 모호한 표현이면서도 이 작품에서는 
+			희구에 대한 강한 이미지로 부각되어 시적 효과를 거두고 있다.</p>
+			
+			<audio src="/sound/sesy.mp3" autoplay loop controls id="listen4">서시 샘플 듣기</audio>
+			</div>
+		</div>
+		
+		
+	</div>
+	
+	<script>
+		new Vue({
+			el: "#bookContent",
+			data: {
+				resData: false,
+				booklist: [],
+				book: {
+					seq: '',
+	    			title: '',
+	    			writer: '',
+	    			category: '',
+	    			publisher: '',
+				}
+			},
+			
+			
+			methods: {
+				reqResAjax: function(){
+					axios({
+						method: "get",
+						url: "selectall",
+						data: {
+							seq: ''
+						}
+					}).then(resData => {
+						this.resData = true;
+						console.log('===전체조회 뷰 확인===');
+						console.log(resData.data);
+						this.booklist = resData.data;
+					}).catch(errorData =>{
+						alert(errorData);
+					});
+				},
+				
+				
+				/* alert창이 뜨고 페이지가 넘어가지 ㅇ낳았으면 좋겠느데 넘어감 .  */
+				deleteBook: function() {
+                	axios({
+                		method: "delete",
+                		url: "delete?seq=" + this.book.seq               	
+                	}).then((resData) => {
+                		this.resData = true;
+                		console.log("===삭제 성공===");
+                		console.log(resData.data);
+                		this.booklist = resData.data;
+                		alert("등록된 책 삭제 완료");
+                	}).catch(errorData => {
+                		alert(errorData);
+                	})
+                },
+                
+                
+                /* ==================== 책 추가 저장 =========================*/
+                addsave: function() {
+                	axios({
+                		method: "post",
+                		url: "addsave",
+                		data: JSON.stringify(this.book),
+                		headers: {'Content-Type': 'application/json'},
+						
+                	}).then((resData) => {
+                		this.resData = true;
+                		console.log("===추가 성공===");
+                		console.log(resData.data);
+                		this.booklist = resData.data;
+                		alert("책 추가 완료");
+                	}).catch(errorData => {
+                		alert(errorData);
+                	})
+                },
+                
+                
+                /* ================= 특정 제목으로 조회 ====================== */
+                selecttitle: function() {
+                	axios({
+                		method: "get",
+                		url: "selecttitle?title=" + this.book.title    
+                	}).then((resData) => {
+                		this.resData = true;
+                		console.log("===조회 성공===");
+                		console.log(resData.data);
+                		this.booklist = resData.data;
+                		alert("희망 책 제목 조회 완료");
+                	}).catch(errorData => {
+                		alert(errorData);
+                	})
+                },
+			}
+		})
+	</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,121 @@
+@charset "utf-8";
+
+body{
+	background-image: url("/image/vintage3.jpg");
+}
+
+
+/* 헤드 */
+h1{
+	border-bottom: 1.8px solid goldenrod;
+	font-size: 3rem;
+	text-align: reft;
+	color: #8b6a61;
+}
+
+button{
+	margin-left: 50px;
+	/* 패딩은 하나로 합칠수있음 */
+    padding-top: 5px; 
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: 1px solid #553504;
+    border-radius: 10px;
+}
+
+input{
+	width: 180px;
+	height: 30px;
+	background: none;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	border-bottom: 1px solid black;
+}
+
+/* 전체 폼 */
+#bookContent{
+	display: 100vh;
+	white-space: pre-line;
+	position: center;
+	text-align: center;
+}
+
+
+
+/* 전체 조회 */
+.bookList{
+	font-family: system-ui, serif;
+	font-size: 1rem;
+	padding: 2rem;
+	position: center;
+	text-align: center;
+}
+
+
+/* 책 추가 등록 */
+
+
+
+
+
+/* 책 미리 보기 */
+
+img{
+	/* display: flex;
+	justify-content: center;
+	min-height: 50vh;
+	position: center;
+	text-align: center; */
+	vertical-align: middle;
+}
+
+img{
+	border-style: none;
+}
+
+h3{
+	font-family: fantasy;
+	font-size: 30px;
+}
+
+.data p{
+	font-family: sans-serif;
+	font-size: 15.6px;	
+	/* text-align: left or right */
+	
+}
+.s-round{
+	border-radius: 4px;
+}
+.s-opacity{
+	opacity: 0.75;
+}
+.s-img{
+	max-width: 100%;
+	height: auto;
+}
+
+.sampleimg{
+	float: left;
+	padding: 12px 24px!important;
+}
+
+
+.totalList{
+	padding-top: 64px!important;
+	padding-bottom: 64px!important;
+}
+
+div{
+	display: block;
+}
+
+
+
+
+/* 책 미리 듣기 */
+
+
+
